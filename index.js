@@ -40,7 +40,12 @@ async function getStats() {
         contributedTo: 0,
     };
 
-    const user = await userInfoFetcher(githubToken).then((res) => res.data.data.viewer);
+    const user = await userInfoFetcher(githubToken).then((res) => {
+        console.log(res);
+        console.log(res.data);
+        res.data.data.viewer.repositories.nodes.forEach((node) => console.log(`${node.name}`));
+        res.data.data.viewer;
+    });
 
     stats.name = user.name || user.login;
     stats.totalPRs = user.pullRequests.totalCount;

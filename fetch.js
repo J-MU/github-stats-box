@@ -1,7 +1,7 @@
 const axios = require('axios');
 
 const userInfoFetcher = (token) => {
-    return axios({
+    const data = axios({
         url: 'https://api.github.com/graphql',
         method: 'post',
         headers: {
@@ -28,6 +28,7 @@ const userInfoFetcher = (token) => {
                   repositories(first: 100, ownerAffiliations: [OWNER, COLLABORATOR], isFork: false, orderBy: {direction: DESC, field: STARGAZERS}) {
                     totalCount
                     nodes {
+                      name
                       stargazers {
                         totalCount
                       }
@@ -37,6 +38,8 @@ const userInfoFetcher = (token) => {
               }`,
         },
     });
+
+    return data;
 };
 
 // Experimental API
