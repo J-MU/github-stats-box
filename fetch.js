@@ -25,7 +25,7 @@ const userInfoFetcher = (token) => {
                   issues(first: 1) {
                     totalCount
                   }
-                  repositories(first: 100, ownerAffiliations: COLLABORATOR, isFork: false, orderBy: {direction: DESC, field: STARGAZERS}) {
+                  repositories(first: 100, ownerAffiliations: [OWNER, COLLABORATOR], isFork: false, orderBy: {direction: DESC, field: STARGAZERS}) {
                     totalCount
                     nodes {
                       stargazers {
