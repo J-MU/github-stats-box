@@ -38,15 +38,12 @@ async function getStats() {
         totalIssues: 0,
         totalStars: 0,
         contributedTo: 0,
+        repositories: [],
     };
 
-    const user = await userInfoFetcher(githubToken).then((res) => {
-        console.log(res);
-        console.log(res.data);
-        res.data.data.viewer.repositories.nodes.forEach((node) => console.log(`${node.name}`));
-        res.data.data.viewer;
-    });
+    const user = await userInfoFetcher(githubToken).then((res) => res.data.data.viewer);
 
+    stats.repositores = user.repositories.nodes;
     stats.name = user.name || user.login;
     stats.totalPRs = user.pullRequests.totalCount;
     stats.totalIssues = user.issues.totalCount;
@@ -103,7 +100,8 @@ async function updateGist(stats) {
         gist_id: gistId,
         headers: { authorization: `token ${githubToken}` },
     }).then(() => {
-        console.info(`Updated Gist ${gistId} with the following content:\n${gistContent}`);
+        // console.info(`Updated Gist ${gistId} with the following content:\n${gistContent}`);
+        console.lnfo(`repositories ${stats.repositories}`);
     });
 }
 
